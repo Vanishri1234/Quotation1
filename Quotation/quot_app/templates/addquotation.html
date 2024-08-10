@@ -1,0 +1,578 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Entry</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <!-- Start Main Top -->
+    <div class="main-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                    <div class="right-phone-box">
+                        <p>Call US :- <a href="#"> +91 702 203 886</a></p>
+                    </div>
+                    <div class="our-link">
+                        <ul>
+                            <li><a
+                                    href="https://www.google.com/maps/place/Flower+Creeper+Legal,+HR+and+Allied+Business+Solutions/@15.3631641,75.1191101,15z/data=!4m6!3m5!1s0x3bb8d7f1c7b02705:0x8cc2a98e30832377!8m2!3d15.3631641!4d75.1191101!16s%2Fg%2F11mng3j1_r?entry=ttu"><i
+                                        class="fas fa-location-arrow"></i> Our location</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="login-box">
+                        <p><a class="btn hvr-hover" href="{% url 'index' %}">LogOut</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Top -->
+
+    <br>
+
+    <!-- Start Main Top -->
+    <header class="main-header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu"
+                        aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href=""></a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">About Us</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">MASTERS</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'company' %}">Company</a></li>
+                                <li><a href="{% url 'customer' %}">Customer</a></li>
+                                <li><a href="{% url 'uom' %}">UOM</a></li>
+                                <li><a href="{% url 'item' %}">ITEM</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'customer_name' %}">Generate Quotation</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Lists</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'company_list' %}">Company List</a></li>
+                                <li><a href="{% url 'customer_list' %}">Customer List</a></li>
+                                <li><a href="{% url 'item_list' %}">Item List</a></li>
+                                <li><a href="#">Quotation List</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br>
+    <div class="container mt-5">
+        <div class="col-md-9">
+            <h1 class="mb-4"><b>Customer Details</b></h1>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="selectCustomer" class="form-label">Select player</label>
+                    <select id="selectCustomer" class="form-select select2" name="customerName" style="width: 100%;">
+                        <option>Select</option>
+                        <!-- Dynamic options filled from server-side template -->
+                        {% for name in cName %}
+                        <option value="{{ name.customerName }}">{{ name.customerName }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div id="customerDetails" class="border rounded p-3 bg-light">
+                <!-- Customer Details Fields populated dynamically -->
+            </div>
+
+
+        <form class="mt-4">
+            <div class="row">
+        <div class="col-md-4">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject">
+        </div>
+
+    </div>
+            <table id="purchase_table" class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                 <tr>
+    <th style="width: 150px;">Item Name</th>
+    <th style="width: 120px;">HSN Code</th>
+    <th style="width: 120px;">Rate per Unit</th>
+    <th style="width: 100px;">Quantity</th>
+    <th style="width: 80px;">UOM</th>
+    <th style="width: 150px;">Total GST (%)</th>
+    <th style="width: 150px;">CGST (%)</th>
+    <th style="width: 150px;">SGST (%)</th>
+    <th style="width: 150px;">IGST (%)</th>
+    <th style="width: 120px;">Total</th>
+</tr>
+
+                </thead>
+                <tbody>
+                    <!-- Rows will be populated here dynamically -->
+                </tbody>
+            </table>
+            <div id="total_value" class="total-value"></div>
+            <div class="mt-3">
+                <button type="button" class="btn btn-primary btn-space" onclick="addRow()">Add Item</button>
+                <button type="button" class="btn btn-success" onclick="savePurchaseDetails()">Save Item</button>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min"></script>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+
+   <script>
+    $(document).ready(function () {
+        // Initialize Select2 for customers
+        $('#selectCustomer').select2();
+
+        // Fetch customer details and item names on selection
+        $('#selectCustomer').change(function () {
+            var selectedCustomer = $(this).val();
+
+            if (selectedCustomer === 'Select' || selectedCustomer === '') {
+                clearCustomerDetails();
+                return;
+            }
+            $.ajax({
+                url: '/fetch_customer_data/',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                data: {
+                    'customerName': selectedCustomer
+                },
+                success: function (data) {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        populateCustomerDetails(data);
+                        fetchItemNames(selectedCustomer); // Fetch item names for the selected customer
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    alert('Error fetching customer data. Please try again.');
+                }
+            });
+        });
+
+        // Initialize Select2 for item names in each row
+        $(document).on('focus', '.itemName', function () {
+            if (!$(this).data('select2')) {
+                var selectedCustomer = $('#selectCustomer').val();
+                if (!selectedCustomer || selectedCustomer === 'Select') {
+                    alert('Please select a customer first.');
+                    return;
+                }
+                $(this).select2({
+                    ajax: {
+                        url: '/fetch_item_names/',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                customerName: selectedCustomer,
+                                searchTerm: params.term // Search term entered by user
+                            };
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        id: item,
+                                        text: item
+                                    }
+                                })
+                            };
+                        }
+                    },
+                    minimumInputLength: 1
+                });
+            }
+        });
+
+        // Fetch item details on selection
+        $(document).on('change', '.itemName', function () {
+            var row = $(this).closest('tr');
+            var selectedItem = $(this).val();
+
+            if (selectedItem === '') {
+                clearItemDetails(row);
+                return;
+            }
+            $.ajax({
+                url: '/fetch_item_data/',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                data: {
+                    'itemName': selectedItem
+                },
+                success: function (data) {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        populateItemDetails(row, data, selectedItem); // Pass selected item name
+                        calculateGrandTotal(); // Recalculate grand total
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    alert('Error fetching item data. Please try again.');
+                }
+            });
+        });
+
+        // Recalculate total when quantity is changed
+        $(document).on('input', '.quantity', function () {
+            var row = $(this).closest('tr');
+            calculateTotal(row);
+            calculateGrandTotal(); // Update grand total
+        });
+
+        // Initialize Select2 for the first item row
+        $('.itemName').select2();
+
+        // Add row functionality
+        $(document).on('click', '#addRowButton', function () {
+            addRow();
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function fetchItemNames(customerName) {
+        $('.itemName').each(function () {
+            var $itemNameField = $(this);
+            $itemNameField.empty().trigger("change"); // Clear previous options if any
+            $itemNameField.select2({
+                ajax: {
+                    url: '/fetch_item_names/',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            customerName: customerName,
+                            searchTerm: params.term // Search term entered by user
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    id: item,
+                                    text: item
+                                }
+                            })
+                        };
+                    }
+                },
+                minimumInputLength: 1
+            });
+        });
+    }
+
+    function populateCustomerDetails(data) {
+        $('#customerDetails').html(`
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Company Name</label>
+                    <input type="text" value="${data.companyName}" name="companyName" readonly class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label>Email Address</label>
+                    <input type="email" value="${data.email}" name="email" readonly class="form-control">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>GST Reg. Type</label>
+                    <input type="text" value="${data.gstRegType}" readonly class="form-control" name="gstRegType">
+                </div>
+                <div class="col-md-6">
+                    <label>GST IN</label>
+                    <input type="text" value="${data.gstin}" readonly class="form-control" name="gstin">
+                </div>
+                <div class="col-md-6">
+                    <label>Phone Number</label>
+                    <input type="text" value="${data.phoneNumber}" readonly class="form-control" name="phoneNumber">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Address</label>
+                    <input type="text" value="${data.address}" readonly class="form-control" name="address">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Country</label>
+                    <input type="text" value="${data.country}" readonly class="form-control" name="country">
+                </div>
+                <div class="col-md-6">
+                    <label>State</label>
+                    <input type="text" value="${data.state}" name="state" readonly class="form-control">
+                </div>
+            </div>
+        `);
+    }
+
+    function clearCustomerDetails() {
+        $('#customerDetails').empty();
+    }
+
+    function clearItemDetails(row) {
+        row.find('input[name="hsnCode[]"]').val('');
+        row.find('input[name="ratePerUnit[]"]').val('');
+        row.find('input[name="quantity[]"]').val('');
+        row.find('input[name="uom[]"]').val('');
+        row.find('input[name="totalGstPercent[]"]').val('');
+        row.find('input[name="sgstPercent[]"]').val('');
+        row.find('input[name="cgstPercent[]"]').val('');
+        row.find('input[name="igstPercent[]"]').val('');
+        row.find('input[name="total[]"]').val('');
+        calculateTotal(row); // Recalculate total
+    }
+
+    function addRow() {
+    var rowId = `row-${Date.now()}`;
+    $('#purchase_table tbody').append(
+        `<tr id="${rowId}">
+            <td><input type="text" class="form-control itemName" name="itemName[]" style="width: 100px;"></td>
+            <td><input type="text" name="hsnCode[]" class="form-control hsnCode" readonly style="width: 100px;"></td>
+            <td><input type="number" name="ratePerUnit[]" class="form-control ratePerUnit" style="width: 100px;"></td>
+            <td><input type="number" name="quantity" class="form-control" style="width: 100px;"></td>
+            <td><input type="text" name="uom[]" class="form-control uom" style="width: 150px;"></td>
+            <td><input type="number" name="totalGstPercent[]" class="form-control totalGstPercent" readonly style="width: 150px;"></td>
+            <td><input type="number" name="sgstPercent[]" class="form-control sgstPercent" readonly style="width: 150px;"></td>
+            <td><input type="number" name="cgstPercent[]" class="form-control cgstPercent" readonly style="width: 150px;"></td>
+            <td><input type="number" name="igstPercent[]" class="form-control igstPercent" readonly style="width: 150px;"></td>
+            <td><input type="number" name="total[]" class="form-control total" readonly style="width: 150px;"></td>
+        </tr>`
+    );
+    // Initialize Select2 for the new row
+    $(`#${rowId} .itemName`).select2({
+        ajax: {
+            url: '/fetch_item_names/',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    customerName: $('#selectCustomer').val(),
+                    searchTerm: params.term // Search term entered by user
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            id: item,
+                            text: item
+                        }
+                    })
+                };
+            }
+        },
+        minimumInputLength: 1
+    });
+}
+
+function populateItemDetails(row, data, selectedItem) {
+    row.find('input[name="hsnCode[]"]').val(data.hsnCode);
+    row.find('input[name="ratePerUnit[]"]').val(data.ratePerUnit);
+    row.find('input[name="uom[]"]').val(data.uom);
+    row.find('input[name="totalGstPercent[]"]').val(data.totalGstPercent);
+    row.find('input[name="sgstPercent[]"]').val(data.sgstPercent);
+    row.find('input[name="cgstPercent[]"]').val(data.cgstPercent);
+    row.find('input[name="igstPercent[]"]').val(data.igstPercent);
+
+    // Recalculate the total for this row after populating the details
+    calculateTotal(row);
+}
+
+function calculateTotal(row) {
+    // Retrieve the values from the row
+    var quantity = parseFloat(row.find('input[name="quantity"]').val()) || 0;
+    var ratePerUnit = parseFloat(row.find('input[name="ratePerUnit[]"]').val()) || 0;
+    var totalGstPercent = parseFloat(row.find('input[name="totalGstPercent[]"]').val()) || 0;
+
+    // Calculate subtotal
+    var subtotal = quantity * ratePerUnit;
+
+    // Calculate GST amount based on subtotal and GST percentage
+    var gstAmount = subtotal * (totalGstPercent / 100);
+
+    // Calculate total amount including GST
+    var totalAmount = subtotal + gstAmount;
+
+    // Update the total amount input field with the calculated value
+    row.find('input[name="total[]"]').val(totalAmount.toFixed(2));
+}
+
+// Attach the calculateTotal function to the input event for the quantity field
+$(document).on('input', 'input[name="quantity"], input[name="ratePerUnit[]"]', function () {
+    var row = $(this).closest('tr');
+    calculateTotal(row); // Recalculate total for the specific row
+    calculateGrandTotal(); // Update grand total for all rows
+});
+
+function calculateGrandTotal() {
+    var grandTotal = 0;
+    $('#purchase_table tbody tr').each(function () {
+        var rowTotal = parseFloat($(this).find('input[name="total[]"]').val()) || 0;
+        grandTotal += rowTotal;
+    });
+    $('#grandTotal').text(grandTotal.toFixed(2));
+}
+
+function savePurchaseDetails() {
+    // Collect data from form fields
+    var customerName = $('#selectCustomer').val();
+    var companyName = $('#customerDetails input[name="companyName"]').val();
+    var email = $('#customerDetails input[name="email"]').val();
+    var gstRegType = $('#customerDetails input[name="gstRegType"]').val();
+    var gstin = $('#customerDetails input[name="gstin"]').val();
+    var phoneNumber = $('#customerDetails input[name="phoneNumber"]').val();
+    var address = $('#customerDetails input[name="address"]').val();
+    var country = $('#customerDetails input[name="country"]').val();
+    var state = $('#customerDetails input[name="state"]').val();
+    var subject = $('#subject').val(); // Get the subject value
+    var description = $('#description').val(); // Get the description value
+
+    // Collect data from purchase table rows
+    var items = [];
+    $('#purchase_table tbody tr').each(function () {
+        var row = $(this);
+        var item = {
+            name: row.find('.itemName').val(),
+            hsnCode: row.find('input[name="hsnCode[]"]').val(),
+            ratePerUnit: row.find('input[name="ratePerUnit[]"]').val(),
+            quantity: row.find('input[name="quantity"]').val(),
+            uom: row.find('input[name="uom[]"]').val(),
+            totalGst: row.find('input[name="totalGstPercent[]"]').val(),
+            cgst: row.find('input[name="cgstPercent[]"]').val(),
+            sgst: row.find('input[name="sgstPercent[]"]').val(),
+            igst: row.find('input[name="igstPercent[]"]').val(),
+            total: row.find('input[name="total[]"]').val()
+        };
+        items.push(item);
+    });
+
+    // Send data to server using AJAX
+    $.ajax({
+        url: '/save_purchase_details/',
+        type: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({
+            customerName: customerName,
+            companyName: companyName,
+            email: email,
+            gstRegType: gstRegType,
+            gstin: gstin,
+            phoneNumber: phoneNumber,
+            address: address,
+            country: country,
+            state: state,
+            items: items,
+            subject: subject,
+            description: description
+        }),
+        success: function (response) {
+            alert('Quotation saved successfully');
+            window.location.href = '/receipt/' + response.quot_number + '/';
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ": " + xhr.responseText);
+            alert('Error saving quotation. Please try again.');
+        }
+    });
+}
+
+// Helper function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+</script>
+</script>
+    <br><br><br><br>
+    <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2024<a href="#">Design And Developed By :
+                <a href="https://flowercreeper.com/index.php">FlowerCreeper</a></p>
+    </div>
+</body>
+</html>

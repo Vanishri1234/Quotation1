@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>Quotation</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{% static 'images/logo2.png' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'images/logo2.png' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <!-- Start Main Top -->
+    <div class="main-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                    <div class="right-phone-box">
+                        <p>Call US :- <a href="#"> +91 702 203 886</a></p>
+                    </div>
+                    <div class="our-link">
+                        <ul>
+                            <li><a href="https://www.google.com/maps/place/Flower+Creeper+Legal,+HR+and+Allied+Business+Solutions/@15.3631641,75.1191101,15z/data=!4m6!3m5!1s0x3bb8d7f1c7b02705:0x8cc2a98e30832377!8m2!3d15.3631641!4d75.1191101!16s%2Fg%2F11mng3j1_r?entry=ttu"><i class="fas fa-location-arrow"></i> Our location</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="login-box">
+                        <p><a class="btn hvr-hover" href="{% url 'index' %}">LogOut</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Top -->
+
+    <br>
+
+    <!-- Start Main Top -->
+    <header class="main-header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                   <a class="navbar-brand" href="{% url 'index' %}">
+                        <img src="{% static 'images/SBI.png' %}" alt="Logo" style="height: 120px;">
+                    </a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'home_page' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">About Us</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">MASTERS</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'company' %}">Company</a></li>
+                                <li><a href="{% url 'customer' %}">Customer</a></li>
+                                <li><a href="{% url 'uom' %}">UOM</a></li>
+                                <li><a href="{% url 'item' %}">ITEM</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'customer_name' %}">Generate Quotation</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Lists</a>
+                            <ul class="dropdown-menu">
+
+                                <li><a href="{% url 'customer_list' %}">Customer List</a></li>
+                                <li><a href="{% url 'item_list' %}">Item List</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br>
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="mb-0">Item List</h4>
+            </div>
+            <div class="card-body">
+                <!-- Search Bar -->
+                <div class="row search-bar">
+                    <div class="col-md-8">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by Item Name">
+                    </div>
+                    <div class="col-md-4">
+                        <button id="searchButton" class="btn btn-primary">Search</button>
+                        <button id="resetButton" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">SI.NO</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">HSN Code</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemTableBody">
+                        {% for item in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ item.itemName }}</td>
+                            <td>{{ item.hsnCode }}</td>
+                            <td class="btn-group">
+                                <form action="{% url 'delete_item' item.id %}" method="post" style="display: inline;">
+                                    <a href="{% url 'edit_item' item.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No items found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<br>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchButton = document.getElementById('searchButton');
+            const resetButton = document.getElementById('resetButton');
+            const searchInput = document.getElementById('searchInput');
+            const itemTableBody = document.getElementById('itemTableBody');
+
+            // Add event listener for search button
+            searchButton.addEventListener('click', function () {
+                const searchTerm = searchInput.value.toLowerCase();
+                const rows = itemTableBody.getElementsByTagName('tr');
+
+                Array.from(rows).forEach(row => {
+                    const itemName = row.cells[1].innerText.toLowerCase();
+                    if (itemName.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            // Add event listener for reset button
+            resetButton.addEventListener('click', function () {
+                searchInput.value = '';
+                const rows = itemTableBody.getElementsByTagName('tr');
+                Array.from(rows).forEach(row => {
+                    row.style.display = '';
+                });
+            });
+        });
+    </script>
+<footer>
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-top-box">
+                            <h3>Business Time</h3>
+                            <ul class="list-time">
+                                <li>Monday - Friday: 08.00am to 05.00pm</li>
+                                <li>Saturday: 10.00am to 08.00pm</li>
+                                <li>Sunday: <span>Closed</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-top-box">
+                            <h3>Newsletter</h3>
+                            <form class="newsletter-box">
+                                <div class="form-group">
+                                    <input class="" type="email" name="Email" placeholder="Email Address*" />
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <button class="btn hvr-hover" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-link-contact">
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-map-marker-alt"></i>Address: 4760/33  1st Floor, Aparna Apartment Rd <br>Shirur Park, 1st Stage,<br> Vidya Nagar, Hubballi,<br>Karnataka 580021 </p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+91-702 2031 886</a></p>
+                                </li>
+                                <li>
+                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:srgflowercreeper@gmail.com">srgflowercreeper@gmail.com</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+  <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2024<a href="#">Design And Developed By :
+            <a href="https://flowercreeper.com/index.php">FlowerCreeper</a></p>
+    </div>
+    <!-- End copyright  -->
+
+    <!-- End Footer -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+    <!-- ALL JS FILES -->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- ALL PLUGINS -->
+    <script src="{% static 'js/jquery.superslides.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <script src="{% static 'js/inewsticker.js' %}"></script>
+    <script src="{% static 'js/bootsnav.js' %}"></script>
+    <script src="{% static 'js/images-loded.min.js' %}"></script>
+    <script src="{% static 'js/isotope.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/baguetteBox.min.js' %}"></script>
+    <script src="{% static 'js/form-validator.min.js' %}"></script>
+    <script src="{% static 'js/contact-form-script.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</body>
+
+</html>

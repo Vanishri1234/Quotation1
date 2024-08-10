@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+    <!-- Bootstrap CSS (optional but recommended) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 20px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .msg {
+            color: red;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Edit Item</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p class="msg">{{ msg }}</p>
+
+        <div class="form-group">
+            <label for="itemName">Item Name</label>
+            <input type="text" id="itemName" name="t1" value="{{ rdata.itemName }}" required class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="hsnCode">HSN Code</label>
+            <input type="text" id="hsnCode" name="t2" value="{{ rdata.hsnCode }}" required class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block">Update Item</button>
+    </form>
+</div>
+<!-- Bootstrap JS (optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

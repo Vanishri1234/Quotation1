@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            color: #333;
+            /* Default text color for body */
+        }
+
+        .letter-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .company-info img {
+            max-width: 120px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .company-info .details {
+            flex: 1;
+        }
+
+        .company-info h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #4158A6;
+            padding: 10px 0;
+            text-align: left;
+        }
+
+        .company-info p {
+            margin-bottom: 5px;
+            color: #6c757d;
+        }
+
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .letter-box table th,
+        .letter-box table td {
+            font-size: 14px;
+            vertical-align: middle;
+            text-align: center;
+            color: #333;
+            border: 1px solid #dee2e6;
+        }
+
+        .letter-box .btn {
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        .border-top-custom {
+            border-top: 3px solid #A02334;
+        }
+
+        .border-bottom-custom {
+            border-bottom: 3px solid #A02334;
+        }
+
+        .centered-content {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* Hide print and back buttons when printing */
+        @media print {
+            .btn-print,
+            .btn-back {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="letter-box">
+
+                        <div class="company-info">
+                            {% if companies %}
+                                <img src="{% static 'images/SBI.png' %}" alt="Company Logo">
+                            {% endif %}
+                            <div class="details">
+                                <h2 class="company-name">
+                                    {% if companies %}
+                                    <p style="text-align: center;">
+                                        <img src="{% static 'images/tirupati.png' %}" alt="Company Logo">
+                                    </p>
+                                    {% endif %}
+                                    {% if companies %}
+                                        <p style="text-align: center;"><b>{{ companies.0.companyName }}</b></p>
+                                    {% else %}
+                                        Company Name
+                                    {% endif %}
+                                </h2>
+                                <div class="company-details border-top-custom border-bottom-custom">
+                                    {% if companies %}
+                                        <p style="text-align: center;">{{ companies.0.address1 }}</p>
+                                        <p style="text-align: center;">{{ companies.0.pincode }}</p>
+                                        <p style="text-align: center;">{{ companies.0.contact }}</p>
+                                        <p style="text-align: center;">{{ companies.0.email }}</p>
+                                    {% else %}
+                                        <p>Address Line 1, Address Line 2, Address Line 3, Address Line 4</p>
+                                        <p>Pincode</p>
+                                        <p>Contact Number</p>
+                                        <p>Email Address</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer and Quotation Info -->
+                        <table class="table table-bordered">
+                            <tr>
+                                <td class="text-left customer-info">
+                                    <p><strong>To:</strong></p>
+                                    <p>{{ quotations.0.customerName }}</p>
+                                    <p>{{ quotations.0.companyName }}</p>
+                                    <p>{{ quotations.0.phoneNumber }}</p>
+                                    <p>{{ quotations.0.address }}</p>
+                                </td>
+                                <td class="text-right">
+                                    <p><strong>Quotation Number:</strong> {{ quotations.0.quot_Number }}</p>
+                                    <p><strong>Date:</strong> <span id="currentDate"></span></p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Subject -->
+                        <div class="highlight">
+                            <p style="text-align:center;">Sub:{{ quotations.0.subject }}</p>
+                            <p>We are pleased to quote you the best prices for requirement as below:</p>
+                        </div>
+
+                        <!-- Items Table -->
+                        <table class="table table-striped table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>SI.NO</th>
+                                    <th>Item/Description</th>
+                                    <th>HSN Code</th>
+                                    <th>GST %</th>
+                                    <th>Rate</th>
+                                    <th>Qty</th>
+                                    <th>UOM</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if quotations %}
+                                    {% for quotation in quotations %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ quotation.itemName }}</td>
+                                            <td>{{ quotation.hsnCode }}</td>
+                                            <td>{{ quotation.totalGstPercent }}</td>
+                                            <td>{{ quotation.ratePerUnit }}</td>
+                                            <td>{{ quotation.quantity }}</td>
+                                            <td>{{ quotation.uom }}</td>
+                                            <td>{{ quotation.total|floatformat:"2" }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="8">No quotations found for the given quotation number.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+
+                        <!-- Summary Table -->
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td colspan="7" class="text-right"><strong>Subtotal:</strong> {{ subtotal|floatformat:"2" }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7" class="text-right"><strong>Total GST:</strong> {{ total_gst|floatformat:"2" }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7" class="text-right"><strong>Grand Total (incl. GST):</strong> {{ grand_total|floatformat:"2" }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7" class="text-left"><strong>Amount Chargeable (In Words):</strong>
+                                        <br><span id="amountInWords"></span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="text-right">
+                                            <p><strong>Authorized Signature:</strong></p>
+                                            <img src="{% static 'path/to/signature_image.png' %}" alt="Authorized Signature" style="max-width: 150px;">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Terms and Conditions -->
+                        <div class="terms-and-conditions">
+                            <h5>Terms and Conditions</h5>
+                            <p>Payment: 30 days</p>
+                            <p>Delivery: 15 days</p>
+                            <p>GST: Applicable</p>
+                            <p>Transportation: Extra applicable</p>
+                        </div>
+
+                        <!-- Buttons for printing or navigating back -->
+                        <div class="text-center">
+                            <a href="javascript:printPage()" id="printButton" class="btn btn-danger btn-print">Print</a>
+                            <a href="{% url 'home' %}" class="btn btn-success btn-back">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to set the current date and convert grand total to words -->
+    <script>
+        // Function to convert a number to words
+        function numberToWords(num) {
+            var ones = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+            var teens = ['Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            var tens = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            var thousands = ['', 'Thousand', 'Million', 'Billion'];
+
+            function convertTriplet(num) {
+                var str = '';
+                if (num >= 100) {
+                    str += ones[Math.floor(num / 100)] + ' Hundred ';
+                    num %= 100;
+                }
+                if (num >= 20) {
+                    str += tens[Math.floor(num / 10) - 2] + ' ';
+                    num %= 10;
+                }
+                if (num >= 11 && num <= 19) {
+                    str += teens[num - 11] + ' ';
+                    num = 0;
+                }
+                if (num > 0) {
+                    str += ones[num] + ' ';
+                }
+                return str;
+            }
+
+            if (num === 0) return ones[0];
+            var result = '';
+            var i = 0;
+            while (num > 0) {
+                var triplet = num % 1000;
+                if (triplet !== 0) {
+                    result = convertTriplet(triplet) + thousands[i] + ' ' + result;
+                }
+                num = Math.floor(num / 1000);
+                i++;
+            }
+            return result.trim();
+        }
+
+        // Set the current date in the template
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-GB');
+
+        // Convert grand total to words and display
+        document.getElementById('amountInWords').textContent = numberToWords({{ grand_total|floatformat:"0" }}).replace(/(\w+)(\s)/g, function(m, p1, p2) {
+            return p1.charAt(0).toUpperCase() + p1.slice(1) + p2;
+        });
+
+        // Print function
+        function printPage() {
+            window.print();
+        }
+    </script>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

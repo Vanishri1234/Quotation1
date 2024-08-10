@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>Quotation</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="{% static 'images/logo2.png' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'images/logo2.png' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <!-- Start Main Top -->
+    <div class="main-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                    <div class="right-phone-box">
+                        <p>Call US :- <a href="#"> +91 702 203 886</a></p>
+                    </div>
+                    <div class="our-link">
+                        <ul>
+                            <li><a href="https://www.google.com/maps/place/Flower+Creeper+Legal,+HR+and+Allied+Business+Solutions/@15.3631641,75.1191101,15z/data=!4m6!3m5!1s0x3bb8d7f1c7b02705:0x8cc2a98e30832377!8m2!3d15.3631641!4d75.1191101!16s%2Fg%2F11mng3j1_r?entry=ttu"><i class="fas fa-location-arrow"></i> Our location</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="login-box">
+                        <p><a class="btn hvr-hover" href="{% url 'index' %}">LogOut</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Top -->
+
+    <br>
+
+    <!-- Start Main Top -->
+    <header class="main-header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                   <a class="navbar-brand" href="{% url 'index' %}">
+                        <img src="{% static 'images/SBI.png' %}" alt="Logo" style="height: 120px;">
+                    </a>
+                </div>
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'home_page' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">MASTERS</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'company' %}">Company</a></li>
+                                <li><a href="{% url 'customer' %}">Customer</a></li>
+                                <li><a href="{% url 'uom' %}">UOM</a></li>
+                                <li><a href="{% url 'item' %}">ITEM</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'customer_name' %}">Generate Quotation</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Lists</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'customer_list' %}">Customer List</a></li>
+                                <li><a href="{% url 'item_list' %}">Item List</a></li>
+                                <li><a href="{% url 'Quotation_list' %}">Quotation List</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="mb-0"><b>Company  List</b></h4>
+            </div>
+            <div class="card-body">
+                <!-- Search Bar -->
+                <div class="row search-bar mb-4">
+                    <div class="col-md-6">
+                        <input type="text" id="searchCompany" class="form-control" placeholder="Search by Company Name">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="searchPhone" class="form-control" placeholder="Search by Phone Number">
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <button id="searchButton" class="btn btn-primary">Search</button>
+                        <button id="resetButton" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Phone Number</th>
+                                <th scope="col">GST Reg. Type</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for company in data %}
+                                <tr id="row{{ company.id }}">
+
+                                    <td>{{ company.companyName }}</td>
+                                    <td>{{ company.contact }}</td>
+                                    <td>{{ company.gstRegType }}</td>
+                                    <td>
+                                        <form method="post" action="{% url 'delete_company' company.id %}">
+                                            <a href="{% url 'edit_company' company.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No company found.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery for handling search -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Search functionality
+            $('#searchButton').click(function () {
+                var companyName = $('#searchCompany').val().trim().toLowerCase();
+                var phoneNumber = $('#searchPhone').val().trim().toLowerCase();
+                $('tbody tr').each(function () {
+                    var currentCompanyName = $(this).find('td:nth-child(1)').text().trim().toLowerCase();
+                    var currentPhoneNumber = $(this).find('td:nth-child(2)').text().trim().toLowerCase();
+                    if ((companyName === "" || currentCompanyName.includes(companyName)) &&
+                        (phoneNumber === "" || currentPhoneNumber.includes(phoneNumber))) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            // Reset functionality
+            $('#resetButton').click(function () {
+                $('#searchCompany').val('');
+                $('#searchPhone').val('');
+                $('tbody tr').show();
+            });
+        });
+    </script>
+
+    <footer>
+        <div class="footer-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-top-box">
+                            <h3>Business Time</h3>
+                            <ul class="list-time">
+                                <li>Monday - Friday: 08.00am to 05.00pm</li>
+                                <li>Saturday: 10.00am to 08.00pm</li>
+                                <li>Sunday: <span>Closed</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-top-box">
+                            <h3>Newsletter</h3>
+                            <form class="newsletter-box">
+                                <div class="form-group">
+                                    <input class="" type="email" name="Email" placeholder="Email Address*" />
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <button class="btn hvr-hover" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-top-box">
+                            <h3>Social Media</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu dolor eu orci vehicula euismod nec eget nulla.</p>
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-copyright">
+            <p class="footer-company">All Rights Reserved. &copy; 2023 <a href="#">Flower Creeper Legal, HR & Allied Business Solutions.</a></p>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+</body>
+
+</html>
